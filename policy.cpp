@@ -33,15 +33,42 @@ void Policy::policyInterface(){
     cinput->addItem("ACCEPT");
     cinput->addItem("DROP");
 
+    connect(cinput,&QComboBox::currentTextChanged,this,[=](){
+        if(cinput->currentText()=="ACCEPT"){
+            qDebug() << "ACCEPT";
+        }
+        else if(cinput->currentText()=="DROP"){
+            qDebug() << "DROP";
+        }
+    });
+
     QComboBox* cforward = new QComboBox();
 
     cforward->addItem("ACCEPT");
     cforward->addItem("DROP");
 
+    connect(cforward,&QComboBox::currentTextChanged,this,[=](){
+        if(cforward->currentText()=="ACCEPT"){
+            qDebug() << "ACCEPT";
+        }
+        else if(cforward->currentText()=="DROP"){
+            qDebug() << "DROP";
+        }
+    });
+
     QComboBox* coutput = new QComboBox();
 
     coutput->addItem("ACCEPT");
     coutput->addItem("DROP");
+
+    connect(coutput,&QComboBox::currentTextChanged,this,[=](){
+        if(coutput->currentText()=="ACCEPT"){
+            qDebug() << "ACCEPT";
+        }
+        else if(coutput->currentText()=="DROP"){
+            qDebug() << "DROP";
+        }
+    });
 
     policyChangeLay->addWidget(new QLabel("INPUT"));
     policyChangeLay->addWidget(cinput);
@@ -66,3 +93,5 @@ void Policy::policyInterface(){
 
     this->setLayout(centerLay);
 }
+
+// void Policy::
