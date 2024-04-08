@@ -6,6 +6,8 @@
 #include "QLabel"
 #include "QtDebug"
 #include "QComboBox"
+#include "QMessageBox"
+#include "QPushButton"
 
 Policy::Policy(QWidget *parent) :
     QWidget(parent),
@@ -34,11 +36,19 @@ void Policy::policyInterface(){
     cinput->addItem("DROP");
 
     connect(cinput,&QComboBox::currentTextChanged,this,[=](){
-        if(cinput->currentText()=="ACCEPT"){
-            qDebug() << "ACCEPT";
-        }
-        else if(cinput->currentText()=="DROP"){
-            qDebug() << "DROP";
+        QMessageBox* alert = new QMessageBox();
+        alert->setText("You have modify the current policy.");
+        alert->setInformativeText("Are you sure to set INPUT policy into "+ cinput->currentText() + "?");
+        alert->setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+        alert->setDefaultButton(QMessageBox::Save);
+        int response = alert->exec();
+        switch(response){
+            case QMessageBox::Save:
+                break;
+            default:
+                if(cinput->currentIndex() == 0) cinput->setCurrentIndex(1);
+                else cinput->setCurrentIndex(0);
+                break;
         }
     });
 

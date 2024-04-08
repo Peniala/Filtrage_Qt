@@ -7,6 +7,7 @@
 #include "QRadioButton"
 #include "QLabel"
 #include "QtDebug"
+#include "QLineEdit"
 
 Rules::Rules(QWidget *parent) :
     QWidget(parent),
@@ -25,7 +26,7 @@ Rules::~Rules()
 void Rules::rulesInterface(){
     QVBoxLayout* centerLayout = new QVBoxLayout();
 
-    QGroupBox* label = new QGroupBox("Add rules");
+    QGroupBox* block = new QGroupBox("Add rules");
 
     QVBoxLayout* field = new QVBoxLayout();
 
@@ -60,11 +61,64 @@ void Rules::rulesInterface(){
 
     firstblock->setLayout(firstLay);
 
+    QGroupBox* secondblock = new QGroupBox("Protocols");
+
+    QVBoxLayout* secondLay = new QVBoxLayout();
+
+    secondblock->setLayout(secondLay);
+
+    QWidget* protocols = new QWidget();
+
+    QHBoxLayout* protLay = new QHBoxLayout();
+
+    protocols->setLayout(protLay);
+
+    QRadioButton* tcp = new QRadioButton("tcp");
+    QRadioButton* udp = new QRadioButton("udp");
+    QRadioButton* ddp = new QRadioButton("ddp");
+    QRadioButton* icmp = new QRadioButton("icmp");
+
+    protLay->addWidget(tcp);
+    protLay->addWidget(udp);
+    protLay->addWidget(ddp);
+    protLay->addWidget(icmp);
+
+    secondLay->addWidget(protocols);
+
+    QGroupBox* thirdblock = new QGroupBox("Source");
+
+    QHBoxLayout* thirdLay = new QHBoxLayout();
+
+    thirdblock->setLayout(thirdLay);
+
+    QLineEdit* source = new QLineEdit();
+
+    QRadioButton* smac = new QRadioButton("MAC");
+
+    thirdLay->addWidget(source);
+    thirdLay->addWidget(smac);
+
+    QGroupBox* fourthblock = new QGroupBox("Destination");
+
+    QHBoxLayout* fourthLay = new QHBoxLayout();
+
+    fourthblock->setLayout(fourthLay);
+
+    QLineEdit* dest = new QLineEdit();
+
+    QRadioButton* dmac = new QRadioButton("MAC");
+
+    fourthLay->addWidget(dest);
+    fourthLay->addWidget(dmac);
+
     field->addWidget(firstblock);
+    field->addWidget(secondblock);
+    field->addWidget(thirdblock);
+    field->addWidget(fourthblock);
 
-    label->setLayout(field);
+    block->setLayout(field);
 
-    centerLayout->addWidget(label);
+    centerLayout->addWidget(block);
 
     this->setLayout(centerLayout);
 
